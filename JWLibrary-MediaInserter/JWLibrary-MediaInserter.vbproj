@@ -7,6 +7,11 @@
     <StartupObject>Sub Main</StartupObject>
     <UseWindowsForms>true</UseWindowsForms>
     <MyType>WindowsForms</MyType>
+    <PackageProjectUrl>https://github.com/darioragusa/JWLibrary-MediaInserter</PackageProjectUrl>
+    <Copyright>Copyright (c) 2022 Dario Ragusa</Copyright>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <RepositoryUrl>https://github.com/darioragusa/JWLibrary-MediaInserter</RepositoryUrl>
+    <ApplicationIcon>Ico.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -45,6 +50,10 @@
     <None Update="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="..\..\JWLibrary-VideosAdder\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
     </None>
   </ItemGroup>
 

@@ -5,6 +5,7 @@
     Dim mediaList As New List(Of String)
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Me.Icon = My.Resources.Ico
         ButtonSelect.Text = My.Resources.buttonSelect
         ButtonDelete.Text = My.Resources.buttonDelete
         ButtonInsert.Text = My.Resources.buttonInsert
@@ -71,6 +72,7 @@
     End Sub
 
     Private Sub ButtonInsert_Click(sender As Object, e As EventArgs) Handles ButtonInsert.Click
+        If ComboBoxWeek.SelectedIndex = -1 Then Return
         Dim wk As Week = ComboBoxWeek.SelectedItem
         For Each mediaPath In mediaList
             If LCase(mediaPath).EndsWith(".mp4") Then
