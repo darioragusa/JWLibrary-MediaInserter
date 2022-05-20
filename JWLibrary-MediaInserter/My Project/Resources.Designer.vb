@@ -79,7 +79,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Select medias to add.
+        '''  Looks up a localized string similar to Select medias to insert.
         '''</summary>
         Friend ReadOnly Property buttonSelect() As String
             Get

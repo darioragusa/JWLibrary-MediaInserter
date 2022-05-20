@@ -124,7 +124,7 @@
     <value>Insert</value>
   </data>
   <data name="buttonSelect" xml:space="preserve">
-    <value>Select medias to add</value>
+    <value>Select medias to insert</value>
   </data>
   <data name="dateStringFrom" xml:space="preserve">
     <value>Week from</value>
