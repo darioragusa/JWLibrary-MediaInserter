@@ -49,13 +49,17 @@ Module FindPubs
         For Each pubDirectory In IO.Directory.EnumerateDirectories(pubsPath)
             Dim pubName As String = pubDirectory.ToString.Split("\").Last
             If pubName.StartsWith("w_") Or pubName.StartsWith("mwb_") Then
-                Dim pub As Publication = New Publication
-                pub.name = pubName
-                pub.tag = CInt(pubName.Substring(pubName.Length - 6))
-                pub.path = pubDirectory
-                pub.symbol = If(pubName.StartsWith("w_"), PubSymbol.w, PubSymbol.mwb)
-                pub.current = If(pubName.StartsWith("w_"), pubName.EndsWith(tagNumberw), pubName.EndsWith(tagNumbermwb))
-                getPubs.Add(pub)
+                Try
+                    Dim pub As Publication = New Publication
+                    pub.name = pubName
+                    pub.tag = CInt(pubName.Substring(pubName.Length - 6))
+                    pub.path = pubDirectory
+                    pub.symbol = If(pubName.StartsWith("w_"), PubSymbol.w, PubSymbol.mwb)
+                    pub.current = If(pubName.StartsWith("w_"), pubName.EndsWith(tagNumberw), pubName.EndsWith(tagNumbermwb))
+                    getPubs.Add(pub)
+                Catch ex As Exception
+                    ' It doesn't matter
+                End Try
             End If
         Next
     End Function

@@ -125,7 +125,11 @@ Module AddMedia
             Using command = sqlCon.CreateCommand()
                 command.CommandText = readIdQuery
                 Using reader = command.ExecuteReader()
-                    If reader.Read() Then getLastMediaKeyID = reader.GetInt32(0)
+                    Try
+                        If reader.Read() Then getLastMediaKeyID = reader.GetInt32(0)
+                    Catch ex As Exception
+                        getLastMediaKeyID = 1
+                    End Try
                 End Using
             End Using
             sqlCon.Close()
@@ -141,7 +145,11 @@ Module AddMedia
             Using command = sqlCon.CreateCommand()
                 command.CommandText = readWeekQuery
                 Using reader = command.ExecuteReader()
-                    If reader.Read() Then getLastMultimediaID = reader.GetInt32(0)
+                    Try
+                        If reader.Read() Then getLastMultimediaID = reader.GetInt32(0)
+                    Catch ex As Exception
+                        getLastMultimediaID = 1
+                    End Try
                 End Using
             End Using
             sqlCon.Close()

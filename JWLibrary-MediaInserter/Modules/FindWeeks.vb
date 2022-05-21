@@ -14,19 +14,23 @@ Module FindWeeks
                 command.CommandText = readWeekQuery
                 Using reader = command.ExecuteReader()
                     While reader.Read()
-                        Dim pubWeek As Week = New Week
-                        pubWeek.pub = pub
-                        If pub.symbol = PubSymbol.w Then
-                            Dim datedTextId = reader.GetInt32(0)
-                            pubWeek.documentId = getWDocumentID(dbPath, datedTextId)
-                            If pubWeek.documentId = -1 Then Continue While
-                        Else
-                            pubWeek.documentId = reader.GetInt32(1) + 1 ' Must use an article
-                        End If
-                        pubWeek.firstDate = reader.GetInt32(2)
-                        pubWeek.lastDate = reader.GetInt32(3)
-                        pubWeek.current = pubWeek.firstDate <= currDate And currDate <= pubWeek.lastDate
-                        getWeeks.Add(pubWeek)
+                        Try
+                            Dim pubWeek As Week = New Week
+                            pubWeek.pub = pub
+                            If pub.symbol = PubSymbol.w Then
+                                Dim datedTextId = reader.GetInt32(0)
+                                pubWeek.documentId = getWDocumentID(dbPath, datedTextId)
+                                If pubWeek.documentId = -1 Then Continue While
+                            Else
+                                pubWeek.documentId = reader.GetInt32(1) + 1 ' Must use an article
+                            End If
+                            pubWeek.firstDate = reader.GetInt32(2)
+                            pubWeek.lastDate = reader.GetInt32(3)
+                            pubWeek.current = pubWeek.firstDate <= currDate And currDate <= pubWeek.lastDate
+                            getWeeks.Add(pubWeek)
+                        Catch ex As Exception
+                            ' Invalid week?
+                        End Try
                     End While
                 End Using
             End Using
