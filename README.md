@@ -4,5 +4,3 @@ JWLibrary-MediaInserter is an app that allows you to add custom images or videos
 <p align="center">
   <img src="https://user-images.githubusercontent.com/46404000/169495699-f9cf40ac-647d-4f26-a267-0c3e55eedae7.png">
 </p>
-
-![JWLibrary](https://user-images.githubusercontent.com/46404000/169491819-72bd7833-8df5-4345-a247-9edd1bcbee07.png)
