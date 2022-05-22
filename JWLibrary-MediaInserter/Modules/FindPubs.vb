@@ -48,7 +48,7 @@ Module FindPubs
 
         For Each pubDirectory In IO.Directory.EnumerateDirectories(pubsPath)
             Dim pubName As String = pubDirectory.ToString.Split("\").Last
-            If pubName.StartsWith("w_") Or pubName.StartsWith("mwb_") Then
+            If (pubName.StartsWith("w_") Or pubName.StartsWith("mwb_")) And (Not pubName.EndsWith(".bak")) Then
                 Try
                     Dim pub As Publication = New Publication
                     pub.name = pubName

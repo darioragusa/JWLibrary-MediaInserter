@@ -123,6 +123,9 @@
   <data name="buttonInsert" xml:space="preserve">
     <value>Insert</value>
   </data>
+  <data name="buttonRestore" xml:space="preserve">
+    <value>Restore publication</value>
+  </data>
   <data name="buttonSelect" xml:space="preserve">
     <value>Select medias to insert</value>
   </data>
@@ -137,6 +140,12 @@
   </data>
   <data name="errorCollection404" xml:space="preserve">
     <value>Collection not found</value>
+  </data>
+  <data name="errorJWL" xml:space="preserve">
+    <value>Close JW Library to continue</value>
+  </data>
+  <data name="errorRestoreGeneric" xml:space="preserve">
+    <value>Unable to restore publication, please try again later</value>
   </data>
   <data name="groupPub" xml:space="preserve">
     <value>Publication</value>

@@ -79,6 +79,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Restore publication.
+        '''</summary>
+        Friend ReadOnly Property buttonRestore() As String
+            Get
+                Return ResourceManager.GetString("buttonRestore", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Select medias to insert.
         '''</summary>
         Friend ReadOnly Property buttonSelect() As String
@@ -120,6 +129,24 @@ Namespace My.Resources
         Friend ReadOnly Property errorCollection404() As String
             Get
                 Return ResourceManager.GetString("errorCollection404", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Close JW Library to continue.
+        '''</summary>
+        Friend ReadOnly Property errorJWL() As String
+            Get
+                Return ResourceManager.GetString("errorJWL", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Unable to restore publication, please try again later.
+        '''</summary>
+        Friend ReadOnly Property errorRestoreGeneric() As String
+            Get
+                Return ResourceManager.GetString("errorRestoreGeneric", resourceCulture)
             End Get
         End Property
         

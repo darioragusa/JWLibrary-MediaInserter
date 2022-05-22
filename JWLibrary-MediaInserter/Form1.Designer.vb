@@ -30,6 +30,7 @@ Partial Class Form1
         Me.ListBoxMedia = New System.Windows.Forms.ListBox()
         Me.ButtonInsert = New System.Windows.Forms.Button()
         Me.GroupBoxPub = New System.Windows.Forms.GroupBox()
+        Me.ButtonRestoreBackup = New System.Windows.Forms.Button()
         Me.GroupBoxMedia.SuspendLayout()
         Me.GroupBoxPub.SuspendLayout()
         Me.SuspendLayout()
@@ -47,9 +48,9 @@ Partial Class Form1
         '
         Me.ComboBoxWeek.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboBoxWeek.FormattingEnabled = True
-        Me.ComboBoxWeek.Location = New System.Drawing.Point(6, 51)
+        Me.ComboBoxWeek.Location = New System.Drawing.Point(6, 60)
         Me.ComboBoxWeek.Name = "ComboBoxWeek"
-        Me.ComboBoxWeek.Size = New System.Drawing.Size(388, 23)
+        Me.ComboBoxWeek.Size = New System.Drawing.Size(300, 23)
         Me.ComboBoxWeek.TabIndex = 2
         '
         'ButtonSelect
@@ -58,7 +59,7 @@ Partial Class Form1
         Me.ButtonSelect.FlatAppearance.BorderSize = 0
         Me.ButtonSelect.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.ButtonSelect.ForeColor = System.Drawing.Color.Blue
-        Me.ButtonSelect.Location = New System.Drawing.Point(6, 22)
+        Me.ButtonSelect.Location = New System.Drawing.Point(6, 16)
         Me.ButtonSelect.Name = "ButtonSelect"
         Me.ButtonSelect.Size = New System.Drawing.Size(275, 23)
         Me.ButtonSelect.TabIndex = 4
@@ -71,7 +72,7 @@ Partial Class Form1
         Me.ButtonDelete.FlatAppearance.BorderSize = 0
         Me.ButtonDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.ButtonDelete.ForeColor = System.Drawing.Color.Red
-        Me.ButtonDelete.Location = New System.Drawing.Point(287, 22)
+        Me.ButtonDelete.Location = New System.Drawing.Point(286, 16)
         Me.ButtonDelete.Name = "ButtonDelete"
         Me.ButtonDelete.Size = New System.Drawing.Size(107, 23)
         Me.ButtonDelete.TabIndex = 5
@@ -81,11 +82,12 @@ Partial Class Form1
         'GroupBoxMedia
         '
         Me.GroupBoxMedia.Controls.Add(Me.ListBoxMedia)
+        Me.GroupBoxMedia.Controls.Add(Me.ButtonInsert)
         Me.GroupBoxMedia.Controls.Add(Me.ButtonSelect)
         Me.GroupBoxMedia.Controls.Add(Me.ButtonDelete)
-        Me.GroupBoxMedia.Location = New System.Drawing.Point(12, 101)
+        Me.GroupBoxMedia.Location = New System.Drawing.Point(12, 114)
         Me.GroupBoxMedia.Name = "GroupBoxMedia"
-        Me.GroupBoxMedia.Size = New System.Drawing.Size(400, 230)
+        Me.GroupBoxMedia.Size = New System.Drawing.Size(400, 246)
         Me.GroupBoxMedia.TabIndex = 3
         Me.GroupBoxMedia.TabStop = False
         Me.GroupBoxMedia.Text = "Media"
@@ -94,7 +96,7 @@ Partial Class Form1
         '
         Me.ListBoxMedia.FormattingEnabled = True
         Me.ListBoxMedia.ItemHeight = 15
-        Me.ListBoxMedia.Location = New System.Drawing.Point(6, 51)
+        Me.ListBoxMedia.Location = New System.Drawing.Point(6, 46)
         Me.ListBoxMedia.Name = "ListBoxMedia"
         Me.ListBoxMedia.Size = New System.Drawing.Size(388, 169)
         Me.ListBoxMedia.TabIndex = 6
@@ -105,32 +107,47 @@ Partial Class Form1
         Me.ButtonInsert.FlatAppearance.BorderSize = 0
         Me.ButtonInsert.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.ButtonInsert.ForeColor = System.Drawing.Color.Blue
-        Me.ButtonInsert.Location = New System.Drawing.Point(12, 337)
+        Me.ButtonInsert.Location = New System.Drawing.Point(6, 219)
         Me.ButtonInsert.Name = "ButtonInsert"
-        Me.ButtonInsert.Size = New System.Drawing.Size(400, 23)
+        Me.ButtonInsert.Size = New System.Drawing.Size(386, 23)
         Me.ButtonInsert.TabIndex = 7
         Me.ButtonInsert.Text = "Insert"
         Me.ButtonInsert.UseVisualStyleBackColor = False
         '
         'GroupBoxPub
         '
+        Me.GroupBoxPub.Controls.Add(Me.ButtonRestoreBackup)
         Me.GroupBoxPub.Controls.Add(Me.ComboBoxPub)
         Me.GroupBoxPub.Controls.Add(Me.ComboBoxWeek)
         Me.GroupBoxPub.Location = New System.Drawing.Point(12, 12)
         Me.GroupBoxPub.Name = "GroupBoxPub"
-        Me.GroupBoxPub.Size = New System.Drawing.Size(400, 83)
+        Me.GroupBoxPub.Size = New System.Drawing.Size(400, 96)
         Me.GroupBoxPub.TabIndex = 0
         Me.GroupBoxPub.TabStop = False
         Me.GroupBoxPub.Text = "Publication"
+        '
+        'ButtonRestoreBackup
+        '
+        Me.ButtonRestoreBackup.BackColor = System.Drawing.Color.Transparent
+        Me.ButtonRestoreBackup.Enabled = False
+        Me.ButtonRestoreBackup.FlatAppearance.BorderSize = 0
+        Me.ButtonRestoreBackup.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.ButtonRestoreBackup.Font = New System.Drawing.Font("Segoe UI", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.ButtonRestoreBackup.ForeColor = System.Drawing.Color.Red
+        Me.ButtonRestoreBackup.Location = New System.Drawing.Point(312, 51)
+        Me.ButtonRestoreBackup.Name = "ButtonRestoreBackup"
+        Me.ButtonRestoreBackup.Size = New System.Drawing.Size(82, 39)
+        Me.ButtonRestoreBackup.TabIndex = 6
+        Me.ButtonRestoreBackup.Text = "Restore backup"
+        Me.ButtonRestoreBackup.UseVisualStyleBackColor = False
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(424, 369)
+        Me.ClientSize = New System.Drawing.Size(424, 372)
         Me.Controls.Add(Me.GroupBoxPub)
-        Me.Controls.Add(Me.ButtonInsert)
         Me.Controls.Add(Me.GroupBoxMedia)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
@@ -151,4 +168,5 @@ Partial Class Form1
     Friend WithEvents ListBoxMedia As ListBox
     Friend WithEvents ButtonInsert As Button
     Friend WithEvents GroupBoxPub As GroupBox
+    Friend WithEvents ButtonRestoreBackup As Button
 End Class

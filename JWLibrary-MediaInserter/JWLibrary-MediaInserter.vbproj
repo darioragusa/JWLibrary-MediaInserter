@@ -12,8 +12,11 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <RepositoryUrl>https://github.com/darioragusa/JWLibrary-MediaInserter</RepositoryUrl>
     <ApplicationIcon>Ico.ico</ApplicationIcon>
-    <AssemblyVersion>1.0.1.1</AssemblyVersion>
-    <FileVersion>1.0.1.1</FileVersion>
+    <AssemblyVersion>1.0.2.1</AssemblyVersion>
+    <FileVersion>1.0.2.1</FileVersion>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Version>1.0.2</Version>
+    <Authors>Dario Ragusa</Authors>
   </PropertyGroup>
 
   <ItemGroup>
@@ -53,7 +56,7 @@
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
     </None>
-    <None Include="..\..\JWLibrary-VideosAdder\LICENSE">
+    <None Include="..\LICENSE">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>

@@ -9,6 +9,7 @@
         ButtonSelect.Text = My.Resources.buttonSelect
         ButtonDelete.Text = My.Resources.buttonDelete
         ButtonInsert.Text = My.Resources.buttonInsert
+        ButtonRestoreBackup.Text = My.Resources.buttonRestore
         GroupBoxPub.Text = My.Resources.groupPub
 
         pubs = New List(Of Publication)
@@ -18,7 +19,10 @@
         ComboBoxPub.DataSource = pubs
         ComboBoxPub.DisplayMember = "title"
 
-        Dim currentPubs = From pub In pubs Where pub.current And If(Now.DayOfWeek > 4, pub.symbol = PubSymbol.w, pub.symbol = PubSymbol.mwb)
+        Dim today = Now.DayOfWeek ' Fix localization
+        Dim wDay = (today = DayOfWeek.Friday) Or (today = DayOfWeek.Saturday) Or (today = DayOfWeek.Sunday)
+
+        Dim currentPubs = From pub In pubs Where pub.current And If(wDay, pub.symbol = PubSymbol.w, pub.symbol = PubSymbol.mwb)
         If currentPubs.Count = 0 Then currentPubs = From pub In pubs Where pub.current
         If currentPubs.Count > 0 Then
             Dim currentPub = currentPubs(0)
@@ -28,7 +32,7 @@
 
     Private Sub ComboBoxPub_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBoxPub.SelectedIndexChanged
         weeks = New List(Of Week)
-        Dim pub = ComboBoxPub.SelectedItem
+        Dim pub As Publication = ComboBoxPub.SelectedItem
         weeks.AddRange(FindWeeks.getWeeks(pub))
         weeks = weeks.OrderByDescending(Function(w) w.firstDate).ToList()
 
@@ -40,6 +44,8 @@
             Dim currentWeek = currentWeeks(0)
             ComboBoxWeek.SelectedItem = currentWeek
         End If
+
+        ButtonRestoreBackup.Enabled = pub.hasBackup
     End Sub
 
     Private Sub ComboBoxWeek_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBoxWeek.SelectedIndexChanged
@@ -74,6 +80,7 @@
     Private Sub ButtonInsert_Click(sender As Object, e As EventArgs) Handles ButtonInsert.Click
         If ComboBoxWeek.SelectedIndex = -1 Then Return
         Dim wk As Week = ComboBoxWeek.SelectedItem
+        wk.pub.makeBackup()
         For Each mediaPath In mediaList
             If LCase(mediaPath).EndsWith(".mp4") Then
                 Dim videoDir As String = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) & "\JWLibrary"
@@ -90,5 +97,33 @@
         ListBoxMedia.Items.Clear()
         ListBoxMedia.DataSource = mediaList
         ButtonDelete.Enabled = Not mediaList.Count = 0
+
+        ComboBoxPub.DisplayMember = ""
+        ComboBoxPub.DisplayMember = "title"
     End Sub
+
+    Private Sub ButtonRestoreBackup_Click(sender As Object, e As EventArgs) Handles ButtonRestoreBackup.Click
+        If ComboBoxPub.SelectedIndex = -1 Then Return
+        If Not CheckJW() Then Return
+
+        Dim pub As Publication = ComboBoxPub.SelectedItem
+        pub.restoreBackup()
+
+        ComboBoxPub.DisplayMember = ""
+        ComboBoxPub.DisplayMember = "title"
+    End Sub
+
+    Function CheckJW() As Boolean
+        Dim proc() As Process
+        proc = Process.GetProcessesByName("JWLibrary")
+        If proc.Count > 0 Then
+            Dim result = MsgBox(My.Resources.errorJWL, MsgBoxStyle.RetryCancel, Me.Text)
+            If result = MsgBoxResult.Cancel Then
+                Return False
+            Else
+                Return CheckJW()
+            End If
+        End If
+        Return True
+    End Function
 End Class
