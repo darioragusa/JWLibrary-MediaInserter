@@ -1,10 +1,17 @@
-﻿Public Class Form1
+﻿'Imports System.Threading
+Public Class Form1
 
     Dim pubs As List(Of Publication)
     Dim weeks As List(Of Week)
     Dim mediaList As New List(Of String)
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ' https://docs.microsoft.com/en-us/aspnet/core/fundamentals/localization?view=aspnetcore-6.0
+        ' Thread.CurrentThread.CurrentUICulture = New Globalization.CultureInfo("en-us")
+        ' Thread.CurrentThread.CurrentUICulture = New Globalization.CultureInfo("it-IT")
+        ' Thread.CurrentThread.CurrentUICulture = New Globalization.CultureInfo("es-ES")
+        ' Thread.CurrentThread.CurrentUICulture = New Globalization.CultureInfo("pt-BR")
+
         Me.Icon = My.Resources.Ico
         ButtonSelect.Text = My.Resources.buttonSelect
         ButtonDelete.Text = My.Resources.buttonDelete
