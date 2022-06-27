@@ -1,4 +1,4 @@
-﻿'Imports System.Threading
+﻿' Imports System.Threading
 Public Class Form1
 
     Dim pubs As List(Of Publication)
@@ -26,6 +26,10 @@ Public Class Form1
         ComboBoxPub.DataSource = pubs
         ComboBoxPub.DisplayMember = "title"
 
+        setCurrentPub()
+    End Sub
+
+    Sub setCurrentPub()
         Dim today = Now.DayOfWeek ' Fix localization
         Dim wDay = (today = DayOfWeek.Friday) Or (today = DayOfWeek.Saturday) Or (today = DayOfWeek.Sunday)
 
@@ -53,10 +57,6 @@ Public Class Form1
         End If
 
         ButtonRestoreBackup.Enabled = pub.hasBackup
-    End Sub
-
-    Private Sub ComboBoxWeek_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBoxWeek.SelectedIndexChanged
-
     End Sub
 
     Private Sub ButtonSelect_Click(sender As Object, e As EventArgs) Handles ButtonSelect.Click
@@ -133,4 +133,27 @@ Public Class Form1
         End If
         Return True
     End Function
+
+    Private Sub ListBoxMedia_DragEnter(sender As Object, e As DragEventArgs) Handles ListBoxMedia.DragEnter
+        If e.Data.GetDataPresent(DataFormats.FileDrop) Then e.Effect = DragDropEffects.Copy
+    End Sub
+
+    Private Sub ListBoxMedia_DragDrop(sender As Object, e As DragEventArgs) Handles ListBoxMedia.DragDrop
+        Dim files() As String = e.Data.GetData(DataFormats.FileDrop)
+        For Each filePath In files
+            If Not IO.File.Exists(filePath) Then Continue For
+            Dim lCasedPath = LCase(filePath)
+            If Not ((lCasedPath.EndsWith(".jpg")) Or (lCasedPath.EndsWith(".jpeg")) Or (lCasedPath.EndsWith(".png")) Or (lCasedPath.EndsWith(".mp4"))) Then Continue For
+            mediaList.Add(filePath)
+        Next
+
+        ListBoxMedia.DataSource = Nothing
+        ListBoxMedia.Items.Clear()
+        ListBoxMedia.DataSource = mediaList
+        ButtonDelete.Enabled = Not mediaList.Count = 0
+    End Sub
+
+    Private Sub Form1_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        If e.KeyCode = Keys.F5 Then setCurrentPub()
+    End Sub
 End Class

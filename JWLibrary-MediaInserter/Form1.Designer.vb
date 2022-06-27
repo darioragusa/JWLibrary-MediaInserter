@@ -39,6 +39,7 @@ Partial Class Form1
         '
         Me.ComboBoxPub.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboBoxPub.FormattingEnabled = True
+        Me.ComboBoxPub.IntegralHeight = False
         Me.ComboBoxPub.Location = New System.Drawing.Point(6, 22)
         Me.ComboBoxPub.Name = "ComboBoxPub"
         Me.ComboBoxPub.Size = New System.Drawing.Size(388, 23)
@@ -81,6 +82,7 @@ Partial Class Form1
         '
         'GroupBoxMedia
         '
+        Me.GroupBoxMedia.BackColor = System.Drawing.Color.White
         Me.GroupBoxMedia.Controls.Add(Me.ListBoxMedia)
         Me.GroupBoxMedia.Controls.Add(Me.ButtonInsert)
         Me.GroupBoxMedia.Controls.Add(Me.ButtonSelect)
@@ -94,6 +96,8 @@ Partial Class Form1
         '
         'ListBoxMedia
         '
+        Me.ListBoxMedia.AllowDrop = True
+        Me.ListBoxMedia.BackColor = System.Drawing.SystemColors.Window
         Me.ListBoxMedia.FormattingEnabled = True
         Me.ListBoxMedia.ItemHeight = 15
         Me.ListBoxMedia.Location = New System.Drawing.Point(6, 46)
@@ -132,17 +136,18 @@ Partial Class Form1
         Me.ButtonRestoreBackup.Enabled = False
         Me.ButtonRestoreBackup.FlatAppearance.BorderSize = 0
         Me.ButtonRestoreBackup.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ButtonRestoreBackup.Font = New System.Drawing.Font("Segoe UI", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.ButtonRestoreBackup.Font = New System.Drawing.Font("Segoe UI", 7.6!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.ButtonRestoreBackup.ForeColor = System.Drawing.Color.Red
-        Me.ButtonRestoreBackup.Location = New System.Drawing.Point(312, 51)
+        Me.ButtonRestoreBackup.Location = New System.Drawing.Point(308, 51)
         Me.ButtonRestoreBackup.Name = "ButtonRestoreBackup"
-        Me.ButtonRestoreBackup.Size = New System.Drawing.Size(82, 39)
+        Me.ButtonRestoreBackup.Size = New System.Drawing.Size(90, 39)
         Me.ButtonRestoreBackup.TabIndex = 6
         Me.ButtonRestoreBackup.Text = "Restore backup"
         Me.ButtonRestoreBackup.UseVisualStyleBackColor = False
         '
         'Form1
         '
+        Me.AllowDrop = True
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
@@ -150,6 +155,7 @@ Partial Class Form1
         Me.Controls.Add(Me.GroupBoxPub)
         Me.Controls.Add(Me.GroupBoxMedia)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.KeyPreview = True
         Me.MaximizeBox = False
         Me.Name = "Form1"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
