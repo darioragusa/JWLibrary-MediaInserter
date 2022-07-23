@@ -70,6 +70,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Export JWPUB.
+        '''</summary>
+        Friend ReadOnly Property buttonExport() As String
+            Get
+                Return ResourceManager.GetString("buttonExport", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Insert.
         '''</summary>
         Friend ReadOnly Property buttonInsert() As String
@@ -93,6 +102,15 @@ Namespace My.Resources
         Friend ReadOnly Property buttonSelect() As String
             Get
                 Return ResourceManager.GetString("buttonSelect", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Show all publications.
+        '''</summary>
+        Friend ReadOnly Property checkShowAll() As String
+            Get
+                Return ResourceManager.GetString("checkShowAll", resourceCulture)
             End Get
         End Property
         
@@ -147,6 +165,15 @@ Namespace My.Resources
         Friend ReadOnly Property errorRestoreGeneric() As String
             Get
                 Return ResourceManager.GetString("errorRestoreGeneric", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Advanced.
+        '''</summary>
+        Friend ReadOnly Property groupAdvanced() As String
+            Get
+                Return ResourceManager.GetString("groupAdvanced", resourceCulture)
             End Get
         End Property
         

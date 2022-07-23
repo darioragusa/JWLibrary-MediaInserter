@@ -2,7 +2,7 @@
 Public Class Form1
 
     Dim pubs As List(Of Publication)
-    Dim weeks As List(Of Week)
+    Dim documents As List(Of Document)
     Dim mediaList As New List(Of String)
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -17,12 +17,23 @@ Public Class Form1
         ButtonDelete.Text = My.Resources.buttonDelete
         ButtonInsert.Text = My.Resources.buttonInsert
         ButtonRestoreBackup.Text = My.Resources.buttonRestore
+        ButtonJWPUB.Text = My.Resources.buttonExport
+        CheckBoxShowAll.Text = My.Resources.checkShowAll
         GroupBoxPub.Text = My.Resources.groupPub
+        GroupBoxAdvanced.Text = My.Resources.groupAdvanced
 
         pubs = New List(Of Publication)
-        pubs.AddRange(FindPubs.getPubs())
+        UpdatePubs(False)
+    End Sub
+
+    Sub UpdatePubs(Advanced As Boolean)
+        pubs.Clear()
+        pubs.AddRange(FindPubs.getPubs(Advanced))
+        pubs = pubs.OrderBy(Function(p) p.title).ToList()
         pubs = pubs.OrderByDescending(Function(p) p.tag).ToList()
 
+        ComboBoxPub.DataSource = Nothing
+        ComboBoxPub.Items.Clear()
         ComboBoxPub.DataSource = pubs
         ComboBoxPub.DisplayMember = "title"
 
@@ -42,18 +53,20 @@ Public Class Form1
     End Sub
 
     Private Sub ComboBoxPub_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBoxPub.SelectedIndexChanged
-        weeks = New List(Of Week)
+        documents = New List(Of Document)
+        If ComboBoxPub.SelectedIndex = -1 Then Exit Sub
         Dim pub As Publication = ComboBoxPub.SelectedItem
-        weeks.AddRange(FindWeeks.getWeeks(pub))
-        weeks = weeks.OrderByDescending(Function(w) w.firstDate).ToList()
+        documents.AddRange(FindDocuments.getDocuments(pub))
 
-        ComboBoxWeek.DataSource = weeks
-        ComboBoxWeek.DisplayMember = "dateString"
+        documents = If(pub.symbol = PubSymbol.other, documents.OrderBy(Function(d) d.documentId).ToList(), documents.OrderByDescending(Function(d) d.firstDate).ToList())
 
-        Dim currentWeeks = From wk In weeks Where wk.current
-        If currentWeeks.Count > 0 Then
-            Dim currentWeek = currentWeeks(0)
-            ComboBoxWeek.SelectedItem = currentWeek
+        ComboBoxDocs.DataSource = documents
+        ComboBoxDocs.DisplayMember = "docTitle"
+
+        Dim currentDocs = From doc In documents Where doc.current
+        If currentDocs.Count > 0 Then
+            Dim currentDoc = currentDocs(0)
+            ComboBoxDocs.SelectedItem = currentDoc
         End If
 
         ButtonRestoreBackup.Enabled = pub.hasBackup
@@ -85,17 +98,17 @@ Public Class Form1
     End Sub
 
     Private Sub ButtonInsert_Click(sender As Object, e As EventArgs) Handles ButtonInsert.Click
-        If ComboBoxWeek.SelectedIndex = -1 Then Return
-        Dim wk As Week = ComboBoxWeek.SelectedItem
-        wk.pub.makeBackup()
+        If ComboBoxDocs.SelectedIndex = -1 Then Return
+        Dim doc As Document = ComboBoxDocs.SelectedItem
+        doc.pub.makeBackup()
         For Each mediaPath In mediaList
             If LCase(mediaPath).EndsWith(".mp4") Then
                 Dim videoDir As String = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) & "\JWLibrary"
                 System.IO.File.Copy(mediaPath, videoDir & "\" & mediaPath.ToString.Split("\").Last, True)
-                AddVideo(wk, mediaPath)
+                AddVideo(doc, mediaPath)
             Else
-                System.IO.File.Copy(mediaPath, wk.pub.path & "\" & mediaPath.ToString.Split("\").Last, True)
-                AddImg(wk, mediaPath)
+                System.IO.File.Copy(mediaPath, doc.pub.path & "\" & mediaPath.ToString.Split("\").Last, True)
+                AddImg(doc, mediaPath)
             End If
         Next
 
@@ -155,5 +168,13 @@ Public Class Form1
 
     Private Sub Form1_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
         If e.KeyCode = Keys.F5 Then setCurrentPub()
+    End Sub
+
+    Private Sub CheckBoxShowAll_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBoxShowAll.CheckedChanged
+        UpdatePubs(True)
+    End Sub
+
+    Private Sub ButtonJWPUB_Click(sender As Object, e As EventArgs) Handles ButtonJWPUB.Click
+        ' TODO
     End Sub
 End Class

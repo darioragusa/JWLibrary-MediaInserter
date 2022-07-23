@@ -1,8 +1,39 @@
 ﻿Imports System.Data.SQLite
 
-Module FindWeeks
-    Function getWeeks(pub As Publication) As List(Of Week)
-        getWeeks = New List(Of Week)
+Module FindDocuments
+    Function getDocuments(pub As Publication) As List(Of Document)
+        If pub.symbol <> PubSymbol.other Then Return getWeeks(pub)
+        getDocuments = New List(Of Document)
+        Dim dbPath As String = pub.path & "\" & pub.name & ".db"
+        If Not System.IO.File.Exists(dbPath) Then Exit Function
+        Dim currDate = CInt(Now.Date.ToString("yyyyMMdd"))
+
+        Using sqlCon As New SQLiteConnection(String.Format("Data Source = {0}", dbPath))
+            Dim readWeekQuery As String = "SELECT DocumentId, Title FROM Document"
+            sqlCon.Open()
+            Using command = sqlCon.CreateCommand()
+                command.CommandText = readWeekQuery
+                Using reader = command.ExecuteReader()
+                    While reader.Read()
+                        Try
+                            Dim pubDocument As Document = New Document
+                            pubDocument.pub = pub
+                            pubDocument.documentId = reader.GetInt32(0)
+                            pubDocument.docTitle = reader.GetString(1)
+                            pubDocument.current = False
+                            getDocuments.Add(pubDocument)
+                        Catch ex As Exception
+                            ' Invalid week?
+                        End Try
+                    End While
+                End Using
+            End Using
+            sqlCon.Close()
+        End Using
+    End Function
+
+    Function getWeeks(pub As Publication) As List(Of Document)
+        getWeeks = New List(Of Document)
         Dim dbPath As String = pub.path & "\" & pub.name & ".db"
         If Not System.IO.File.Exists(dbPath) Then Exit Function
         Dim currDate = CInt(Now.Date.ToString("yyyyMMdd"))
@@ -15,7 +46,7 @@ Module FindWeeks
                 Using reader = command.ExecuteReader()
                     While reader.Read()
                         Try
-                            Dim pubWeek As Week = New Week
+                            Dim pubWeek As Document = New Document
                             pubWeek.pub = pub
                             If pub.symbol = PubSymbol.w Then
                                 Dim datedTextId = reader.GetInt32(0)

@@ -16,7 +16,7 @@ Module FindPubs
         If IO.Directory.Exists(path) Then getPubsDirectory = path
     End Function
 
-    Function getPubs() As List(Of Publication)
+    Function getPubs(Advanced As Boolean) As List(Of Publication)
         getPubs = New List(Of Publication)
         Dim pubsPath As String = getPubsDirectory()
         If pubsPath = "" Then Exit Function
@@ -48,14 +48,20 @@ Module FindPubs
 
         For Each pubDirectory In IO.Directory.EnumerateDirectories(pubsPath)
             Dim pubName As String = pubDirectory.ToString.Split("\").Last
-            If (pubName.StartsWith("w_") Or pubName.StartsWith("mwb_")) And (Not pubName.EndsWith(".bak")) Then
+            If Not pubName.EndsWith(".bak") Then
                 Try
                     Dim pub As Publication = New Publication
                     pub.name = pubName
-                    pub.tag = CInt(pubName.Substring(pubName.Length - 6))
                     pub.path = pubDirectory
-                    pub.symbol = If(pubName.StartsWith("w_"), PubSymbol.w, PubSymbol.mwb)
-                    pub.current = If(pubName.StartsWith("w_"), pubName.EndsWith(tagNumberw), pubName.EndsWith(tagNumbermwb))
+                    If (pubName.StartsWith("w_") Or pubName.StartsWith("mwb_")) Then
+                        pub.tag = CInt(pubName.Substring(pubName.Length - 6))
+                        pub.symbol = If(pubName.StartsWith("w_"), PubSymbol.w, PubSymbol.mwb)
+                        pub.current = If(pubName.StartsWith("w_"), pubName.EndsWith(tagNumberw), pubName.EndsWith(tagNumbermwb))
+                    Else
+                        If Not Advanced Then Continue For
+                        pub.symbol = PubSymbol.other
+                        pub.current = False
+                    End If
                     getPubs.Add(pub)
                 Catch ex As Exception
                     ' It doesn't matter

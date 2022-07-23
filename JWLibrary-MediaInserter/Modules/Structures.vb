@@ -26,7 +26,7 @@ Class Publication
             Dim manifestPath As String = path & "\manifest.json"
             Dim manifest = File.ReadAllText(manifestPath)
             Dim manifestJObj As Newtonsoft.Json.Linq.JObject = Newtonsoft.Json.Linq.JObject.Parse(manifest)
-            Dim title = CStr(manifestJObj.SelectToken("publication.issueProperties.title"))
+            Dim title = CStr(manifestJObj.SelectToken(If(symbol = PubSymbol.other, "publication.title", "publication.issueProperties.title")))
             Return title & If(hasBackup, "*", "")
         Catch ex As Exception
             Return ""
@@ -50,21 +50,24 @@ Class Publication
         My.Computer.FileSystem.MoveDirectory(path + ".bak", path)
     End Sub
 End Class
-Class Week
+Class Document
     Property pub As Publication
     Property documentId As Integer
     Property current As Boolean
     Property firstDate As Integer
     Property lastDate As Integer
-    Property dateString As String
+    Private Property title As String
+    Property docTitle As String
         Get
-            Return getDateString()
+            Return getDocTitle()
         End Get
         Set(value As String)
+            title = value
         End Set
     End Property
 
-    Function getDateString() As String
+    Function getDocTitle() As String
+        If pub.symbol = PubSymbol.other Then Return title
         Try
             Dim fDate = Format(firstDate).Insert(4, "-").Insert(7, "-")
             Dim lDate = Format(lastDate).Insert(4, "-").Insert(7, "-")
@@ -79,4 +82,5 @@ End Class
 Enum PubSymbol As Byte
     w
     mwb
+    other
 End Enum

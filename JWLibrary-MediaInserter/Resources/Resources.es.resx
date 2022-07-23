@@ -120,6 +120,10 @@
   <data name="buttonDelete" xml:space="preserve">
     <value>Eliminar</value>
   </data>
+  <data name="buttonExport" xml:space="preserve">
+    <value>Export JWPUB</value>
+    <comment>// TODO TRANSLATE</comment>
+  </data>
   <data name="buttonInsert" xml:space="preserve">
     <value>Insertar</value>
   </data>
@@ -128,6 +132,10 @@
   </data>
   <data name="buttonSelect" xml:space="preserve">
     <value>Selecciona los archivos a insertar</value>
+  </data>
+  <data name="checkShowAll" xml:space="preserve">
+    <value>Show all publications</value>
+    <comment>// TODO TRANSLATE</comment>
   </data>
   <data name="dateStringFrom" xml:space="preserve">
     <value>Semana del</value>
@@ -146,6 +154,10 @@
   </data>
   <data name="errorRestoreGeneric" xml:space="preserve">
     <value>No ha sido posible restaurar la publicación. Por favor, inténtalo de nuevo más tarde</value>
+  </data>
+  <data name="groupAdvanced" xml:space="preserve">
+    <value>Advanced</value>
+    <comment>// TODO TRANSLATE</comment>
   </data>
   <data name="groupPub" xml:space="preserve">
     <value>Publicación</value>

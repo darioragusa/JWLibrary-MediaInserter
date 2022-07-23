@@ -2,8 +2,8 @@
 Imports System.Data.SQLite
 
 Module AddMedia
-    Sub AddImg(wk As Week, ByVal imgPath As String)
-        Dim dbPath As String = wk.pub.path & "\" & wk.pub.name & ".db"
+    Sub AddImg(doc As Document, ByVal imgPath As String)
+        Dim dbPath As String = doc.pub.path & "\" & doc.pub.name & ".db"
         If Not System.IO.File.Exists(dbPath) Then Return
         Using SQLCon As New SQLiteConnection(String.Format("Data Source = {0}", dbPath))
             Dim insertMultimediaQuery As String = "INSERT INTO Multimedia(DataType, MajorType, MinorType, MimeType, Caption, FilePath, CategoryType) VALUES(@Data, @Major, @Minor, @Mime, @Caption, @File, @Category)"
@@ -24,7 +24,7 @@ Module AddMedia
                 multimediaCMD.ExecuteNonQuery()
 
                 Dim documentMultimediaCMD As New SQLiteCommand(insertDocumentMultimediaQuery, SQLCon)
-                documentMultimediaCMD.Parameters.AddWithValue("@Document", CStr(wk.documentId))
+                documentMultimediaCMD.Parameters.AddWithValue("@Document", CStr(doc.documentId))
                 documentMultimediaCMD.Parameters.AddWithValue("@Multimedia", CStr(mediaID))
                 documentMultimediaCMD.ExecuteNonQuery()
 
@@ -33,8 +33,8 @@ Module AddMedia
         End Using
     End Sub
 
-    Sub AddVideo(wk As Week, videoPath As String)
-        Dim dbPath As String = wk.pub.path & "\" & wk.pub.name & ".db"
+    Sub AddVideo(doc As Document, videoPath As String)
+        Dim dbPath As String = doc.pub.path & "\" & doc.pub.name & ".db"
         If Not System.IO.File.Exists(dbPath) Then Return
 
         Dim collectionPath As String = findCollectionDirectory()
@@ -64,7 +64,7 @@ Module AddMedia
                 multimediaCMD.ExecuteNonQuery()
 
                 Dim documentMultimediaCMD As New SQLiteCommand(insertDocumentMultimediaQuery, SQLCon)
-                documentMultimediaCMD.Parameters.AddWithValue("@Document", CStr(wk.documentId))
+                documentMultimediaCMD.Parameters.AddWithValue("@Document", CStr(doc.documentId))
                 documentMultimediaCMD.Parameters.AddWithValue("@Multimedia", mediaID)
                 documentMultimediaCMD.ExecuteNonQuery()
             End If
