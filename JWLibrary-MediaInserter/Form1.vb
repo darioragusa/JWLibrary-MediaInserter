@@ -175,6 +175,9 @@ Public Class Form1
     End Sub
 
     Private Sub ButtonJWPUB_Click(sender As Object, e As EventArgs) Handles ButtonJWPUB.Click
-        ' TODO
+        If ComboBoxPub.SelectedIndex = -1 Then Return
+
+        Dim pub As Publication = ComboBoxPub.SelectedItem
+        pub.export()
     End Sub
 End Class

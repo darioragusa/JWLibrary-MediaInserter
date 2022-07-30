@@ -121,8 +121,7 @@
     <value>Excluir</value>
   </data>
   <data name="buttonExport" xml:space="preserve">
-    <value>Export JWPUB</value>
-    <comment>// TODO TRANSLATE</comment>
+    <value>Exportar JWPUB</value>
   </data>
   <data name="buttonInsert" xml:space="preserve">
     <value>Inserir</value>
@@ -134,8 +133,7 @@
     <value>Selecionar mídias e inserir</value>
   </data>
   <data name="checkShowAll" xml:space="preserve">
-    <value>Show all publications</value>
-    <comment>// TODO TRANSLATE</comment>
+    <value>Mostrar todas as publicações</value>
   </data>
   <data name="dateStringFrom" xml:space="preserve">
     <value>Semana de</value>
@@ -156,8 +154,7 @@
     <value>A publicação não pôde ser restaurada. Por favor, tente novamente mais tarde</value>
   </data>
   <data name="groupAdvanced" xml:space="preserve">
-    <value>Advanced</value>
-    <comment>// TODO TRANSLATE</comment>
+    <value>Avançado</value>
   </data>
   <data name="groupPub" xml:space="preserve">
     <value>Publicação</value>
