@@ -1,5 +1,6 @@
 ﻿Imports System.IO
 Imports System.Data.SQLite
+Imports MediaToolkit
 
 Module AddMedia
     Sub AddImg(doc As Document, ByVal imgPath As String)
@@ -75,7 +76,7 @@ Module AddMedia
     Function AddVideoToCollection(dbDir As String, videoPath As String) As Integer
         Using SQLCon As New SQLiteConnection(String.Format("Data Source = {0}", dbDir))
             Dim insertMediaKeyQuery As String = "INSERT INTO MediaKey(MediaKeyId, KeySymbol, MediaType, DocumentId, MepsLanguageIndex, IssueTagNumber, Track, BookNumber) VALUES(@MediaKeyId, @KeySymbol, @MediaType, @DocumentId, @MepsLanguageIndex, @IssueTagNumber, @Track, @BookNumber)"
-            Dim insertVideoQuery As String = "INSERT INTO Video(MediaKeyId, Title, Version, MimeType, BitRate, FrameRate, Duration, Checksum, FileSize, FrameHeight, FrameWidth, Label, Subtitled, DownloadUrl, FilePath, Source) VALUES(@MediaKeyId, @Title, @Version, @MimeType, @BitRate, @FrameRate, @Duration, @Checksum, @FileSize, @FrameHeight, @FrameWidth, @Label, @Subtitled, @DownloadUrl, @FilePath, @Source)"
+            Dim insertVideoQuery As String = "INSERT INTO Video(MediaKeyId, Title, Version, MimeType, BitRate, FrameRate, Duration, Checksum, FileSize, FrameHeight, FrameWidth, Label, FilePath, Source) VALUES(@MediaKeyId, @Title, @Version, @MimeType, @BitRate, @FrameRate, @Duration, @Checksum, @FileSize, @FrameHeight, @FrameWidth, @Label, @FilePath, @Source)"
             SQLCon.Open()
             Dim videoName = videoPath.Split("\").Last
             Dim NewID = getLastMediaKeyID(dbDir) + 1
@@ -92,21 +93,24 @@ Module AddMedia
             mediaKeyCMD.Parameters.AddWithValue("@BookNumber", "0")
             mediaKeyCMD.ExecuteNonQuery()
 
+            Dim inputFile As New MediaToolkit.Model.MediaFile()
+            inputFile.Filename = videoPath
+            Dim engine As New MediaToolkit.Engine()
+            engine.GetMetadata(inputFile)
+
             Dim videoCMD As New SQLiteCommand(insertVideoQuery, SQLCon)
             videoCMD.Parameters.AddWithValue("@MediaKeyId", NewID)
             videoCMD.Parameters.AddWithValue("@Title", videoName.Replace(".mp4", "").Replace(".MP4", ""))
             videoCMD.Parameters.AddWithValue("@Version", 1)
             videoCMD.Parameters.AddWithValue("@MimeType", "video/mp4")
-            videoCMD.Parameters.AddWithValue("@BitRate", 1000) 'No matter
-            videoCMD.Parameters.AddWithValue("@FrameRate", 30) 'No matter
-            videoCMD.Parameters.AddWithValue("@Duration", 1) 'No matter
+            videoCMD.Parameters.AddWithValue("@BitRate", inputFile.Metadata.VideoData.BitRateKbs)
+            videoCMD.Parameters.AddWithValue("@FrameRate", Int(inputFile.Metadata.VideoData.Fps))
+            videoCMD.Parameters.AddWithValue("@Duration", Int(inputFile.Metadata.Duration.TotalSeconds))
             videoCMD.Parameters.AddWithValue("@Checksum", "") 'No matter
             videoCMD.Parameters.AddWithValue("@FileSize", CStr(FileLen(videoPath)))
-            videoCMD.Parameters.AddWithValue("@FrameHeight", 720) 'No matter
-            videoCMD.Parameters.AddWithValue("@FrameWidth", 1280) 'No matter
+            videoCMD.Parameters.AddWithValue("@FrameHeight", Int(inputFile.Metadata.VideoData.FrameSize.Split("x").Last))
+            videoCMD.Parameters.AddWithValue("@FrameWidth", Int(inputFile.Metadata.VideoData.FrameSize.Split("x").First))
             videoCMD.Parameters.AddWithValue("@Label", "720p") 'No matter
-            videoCMD.Parameters.AddWithValue("@Subtitled", 0)
-            videoCMD.Parameters.AddWithValue("@DownloadUrl", "https://github.com/darioragusa") 'No matter
             videoCMD.Parameters.AddWithValue("@FilePath", Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) & "\JWLibrary\" & videoName)
             videoCMD.Parameters.AddWithValue("@Source", 0)
             videoCMD.ExecuteNonQuery()

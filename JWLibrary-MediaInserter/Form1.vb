@@ -104,6 +104,7 @@ Public Class Form1
         For Each mediaPath In mediaList
             If LCase(mediaPath).EndsWith(".mp4") Then
                 Dim videoDir As String = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) & "\JWLibrary"
+                If Not System.IO.Directory.Exists(videoDir) Then System.IO.Directory.CreateDirectory(videoDir)
                 System.IO.File.Copy(mediaPath, videoDir & "\" & mediaPath.ToString.Split("\").Last, True)
                 AddVideo(doc, mediaPath)
             Else

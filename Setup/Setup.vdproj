@@ -218,15 +218,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:JWLibrary-MediaInserter"
-        "ProductCode" = "8:{07C31C7A-D46B-4872-957C-9163907B70A5}"
-        "PackageCode" = "8:{E1940523-8C49-4F3F-8E57-F6A950EB1A8A}"
+        "ProductCode" = "8:{EA62290D-3E56-4BE2-8ACE-C32ED7890DFE}"
+        "PackageCode" = "8:{5F01F8F8-4B9E-4127-8B30-5B1112C2A136}"
         "UpgradeCode" = "8:{09FD1BF9-B833-42FE-9A92-9EB67623E681}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:FALSE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.1.1"
+        "ProductVersion" = "8:1.2.0"
         "Manufacturer" = "8:Dario Ragusa"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://github.com/darioragusa/JWLibrary-MediaInserter"
@@ -796,7 +796,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_66C30E51E94A43209D65D5A73DA123F8"
             {
-            "SourcePath" = "8:..\\JWLibrary-MediaInserter\\obj\\Release\\net6.0-windows\\apphost.exe"
+            "SourcePath" = "8:..\\JWLibrary-MediaInserter\\obj\\Debug\\net6.0-windows\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_B0C2709F9A0C44CBB46D23301B5199D9"
